@@ -39,7 +39,7 @@ data_reviews.set_index('App', inplace=True)
 # for index,rows in data_reviews.iterrows():
 #   print(index)
 
-data = pd.read_csv('/content/dataset/googleplaystore.csv',index_col = "App")
+data = pd.read_csv('./dataset/googleplaystore.csv',index_col = "App")
 data["App Name"]=data.index
 
 #removing duplicate entries
@@ -48,7 +48,7 @@ data.drop_duplicates(subset=['App Name'], keep='first',inplace = True)
 data.Type = pd.Categorical(data.Type)
 data.Type=data.Type.astype('category').cat.codes
 
-print(data.head())
+# print(data.head())
 # for i in data.iloc[0]:
 #   print(i)
 
@@ -67,7 +67,7 @@ if len(matching_apps)==0:
 else:
   given_app=matching_apps.iloc[0,:]
   print("Recommending for app: ",given_app[12])
-  print(given_app)
+  # print(given_app)
 
 data = data.loc[data['Category'] == given_app[0]]
 
@@ -91,8 +91,8 @@ if given_app[12] in data_reviews.index:
   for i in range(0,len(matrix_reviews)):
     reviews_similarity[data_reviews.index[i]]=matrix_reviews[i][0]
 
-else:
-  print("No reviews found")
+# else:
+#   print("No reviews found")
 
 list_similarities = []
 
@@ -153,7 +153,10 @@ for entry in buckets:
 if len(final_ans)==0:
   print("No Good recommendations")
 else:
-  print("App,\t Rating,\t Similarity_measure")
+  print()
+  print()
+  print("App\t Rating\t Similarity_measure")
+  print()
   for i in range(0,min(num_rec,len(final_ans))):
     print(final_ans[i][0],'\t',final_ans[i][1],'\t',round(final_ans[i][2],3))
 
